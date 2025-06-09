@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // Header component present on all pages
 const Header = ({ setCurrentPage }) => {
@@ -28,7 +28,7 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <img 
+                    <img alt=''
                         src="https://d1nymbkeomeoqg.cloudfront.net/photos/26/22/383685_21601_XL.jpg"  
                         className="rounded-lg shadow-xl w-full h-auto object-cover"
                     />
@@ -344,6 +344,73 @@ const BookingsPage = ({ allBookings }) => {
     );
 };
 
+//Contact Us Page Component
+const ContactPage = ({ setCurrentPage }) => {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [isSent, setIsSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !message) {
+      setError('Please fill out both the email and message section.');
+      return;
+    }
+    setError('');
+    setIsSent(true);
+  };
+
+  if (isSent) {
+    return (
+      <div className ="container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="max-w-lg mx-auto bg-white p-10 rounded-lg shadow-xl">
+          <svg className="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h2 className="mt-4 text-3xl font-extrabold text-green-700">Message Sent!</h2>
+          <p className="mt-4 text-gray-600">
+            Thanks for the message! We'll get back to you at <span className="font-bold">{email}</span> as soon as possible.
+          </p>
+          <button onClick = {() => setCurrentPage('home')} className="mt-8 bg-amber-800 text-white font-bold py-3 px-8 rounded-lg hover:bg-amber-700 transition-colors">
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-center text-amber-900 mb-2">Contact Us</h2>
+        <p className="text-center text-gray-600 mb-8">Have a question? Send us a message!</p>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700">Your Email</label>
+            <input type="email" id="contact-email" value={email} onChange={e => setEmail(e.target.value)} 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:romg-amber-500 sm:text-sm p-2" 
+            placeholder="you@example.com"/>
+          </div>
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+            <textarea id="message" rows="6" value={message} onChange= {e => setMessage(e.target.value)}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2"
+            placeholder="Ask us anything!"
+            ></textarea>
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <div className="text-center">
+            <button type="submit" className="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition-colors w-full sm:w-auto">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
 // Main App Component
 export default function App() {
     const [currentPage, setCurrentPage] = useState('home'); // 'home', 'book', 'confirmation', 'bookings'
@@ -364,6 +431,8 @@ export default function App() {
                 return <ConfirmationPage bookingDetails={currentBookingDetails} />;
             case 'bookings':
                 return <BookingsPage allBookings={allBookings} />;
+            case 'contact':
+                return <ContactPage setCurrentPage={setCurrentPage} />;
             case 'home':
             default:
                 return <HomePage setCurrentPage={setCurrentPage} />;
