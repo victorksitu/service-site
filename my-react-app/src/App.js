@@ -40,9 +40,10 @@ const HomePage = ({ setCurrentPage }) => {
                 </div>
                 <div className="bg-amber-100/50 p-8 rounded-lg shadow-lg text-center">
                     <h2 className="text-4xl font-extrabold text-amber-900 mb-4">About Us</h2>
-                    <p className="text-lg text-gray-700 mb-8">
-                        We're a small team of cyclists devoted to helping others in the community have a good time! With over 10 years of experience, we handle nearly all issues and customizations when it comes to bicycles. Book with us, and your bike is in good hands.
+                    <p className="text-lg text-gray-700 mb-2">
+                        We're a small team of cyclists devoted to helping others in the community have a good time by keeping their bikes repaired! With over 10 years of experience, we handle nearly all issues and customizations when it comes to bicycles. Book with us, and your bike is in good hands.
                     </p>
+                    <p className='text-lg text-amber-900 font-bold mb-8'>Designed by Victor and Matthew</p>
                     <button 
                         onClick={() => setCurrentPage('book')}
                         className="bg-green-600 text-white font-bold py-4 px-10 rounded-lg shadow-md hover:bg-green-700 transform hover:scale-105 transition-all duration-300 ease-in-out text-xl"
@@ -384,7 +385,8 @@ const ContactPage = ({ setCurrentPage }) => {
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold text-center text-amber-900 mb-2">Contact Us</h2>
-        <p className="text-center text-gray-600 mb-8">Have a question? Send us a message!</p>
+        <p className="text-center text-gray-600">Have a question? Send us a message!</p>
+        <p className="text-center text-gray-600 mb-8">613-123-4567 fixabike@gmail.com</p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700">Your Email</label>
